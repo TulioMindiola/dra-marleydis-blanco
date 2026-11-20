@@ -115,7 +115,7 @@
   $$('[data-list]').forEach((list) => Array.from(list.children).forEach((c, i) => c.style.setProperty('--i', i)));
   // Comprobado en cada scroll (no con IntersectionObserver): un salto por un ancla o un scroll
   // programático también revela lo que quedó atrás, y nada se queda escondido.
-  let pending = $$('[data-reveal], [data-drift], [data-list], [data-price], .gallery, .foot');
+  let pending = $$('[data-reveal], [data-drift], [data-list], [data-price], [data-rate], .gallery, .foot');
   function reveal() {
     if (!pending.length) return;
     const line = window.innerHeight * 0.88;
@@ -218,7 +218,8 @@
 
   /* ---------- reservar cita ----------
      La página no guarda nada: arma la reserva y la abre en el WhatsApp del consultorio.
-     Días y horas de atención por confirmar con la doctora (lunes a sábado; sábados solo en la mañana). */
+     Horario de su perfil de Google Maps: lunes a viernes de 9 a. m. a 7 p. m. y sábados de 9 a. m. a 5 p. m.
+     La última cita empieza una hora antes del cierre. */
   const form = $('#reserva');
   const treatSel = $('#bf-treat');
   const daysBox = $('#bf-days');
@@ -226,8 +227,8 @@
   const timeHint = $('#bf-time-hint');
   const summary = $('#bf-summary');
   const done = $('#bf-done');
-  const MORNING = ['8:00', '9:00', '10:00', '11:00'];
-  const AFTERNOON = ['2:00', '3:00', '4:00', '5:00'];
+  const HOURS = ['9:00 a. m.', '10:00 a. m.', '11:00 a. m.', '12:00 m.', '1:00 p. m.', '2:00 p. m.', '3:00 p. m.', '4:00 p. m.', '5:00 p. m.', '6:00 p. m.'];
+  const SATURDAY = HOURS.slice(0, HOURS.indexOf('4:00 p. m.') + 1);
   const DAYS_AHEAD = 12;
   const tidy = (s) => s.replace(/\./g, '');
   const fWeek = new Intl.DateTimeFormat('es-CO', { weekday: 'short' });
@@ -249,13 +250,13 @@
     if (i === '') { slotsBox.innerHTML = ''; timeHint.hidden = false; timeHint.textContent = 'Primero elige un día.'; return; }
     const sat = days[+i].getDay() === 6;
     const prev = chosen('hora');
-    const list = MORNING.map((t) => `${t} a. m.`).concat(sat ? [] : AFTERNOON.map((t) => `${t} p. m.`));
+    const list = sat ? SATURDAY : HOURS;
     slotsBox.innerHTML = list.map((t) => {
       const [h, ...ap] = t.split(' ');
       return `<label class="bf-chip"><input type="radio" name="hora" value="${t}"${t === prev ? ' checked' : ''}><span><b>${h}</b><i>${ap.join(' ')}</i></span></label>`;
     }).join('');
     timeHint.hidden = !sat;
-    timeHint.textContent = 'Los sábados atendemos en la mañana.';
+    timeHint.textContent = 'Los sábados atendemos hasta las 5 p. m.';
   }
   function updateSummary() {
     const i = chosen('dia'), t = chosen('hora');
@@ -353,5 +354,8 @@
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
-  paintBar(); stageFromScroll(); reveal(); playClips();
+  const sync = () => { paintBar(); stageFromScroll(); reveal(); playClips(); };
+  // un enlace con #seccion abre la página ya bajada: al cargar se revela lo que quedó en pantalla
+  window.addEventListener('load', sync);
+  sync();
 })();

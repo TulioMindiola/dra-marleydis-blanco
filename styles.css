@@ -321,6 +321,30 @@ video.loop { display: block; width: 100%; height: auto; object-fit: cover; backg
 .bio-p { display: flow-root; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.22; letter-spacing: -0.01em; max-width: 30ch; }
 .bio-2 { display: flow-root; margin-top: 1.5rem; max-width: 52ch; color: var(--g-muted); }
 
+/* ---------- 5b · opiniones en Google ---------- */
+.reviews { padding-block: calc(var(--section) * 0.7); }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.rev-top { align-items: end; row-gap: 2.5rem; }
+.rev-title { grid-column: 1 / span 7; max-width: 11ch; text-wrap: balance; }
+.rev-score { grid-column: 9 / span 4; justify-self: end; display: grid; justify-items: end; gap: 0.9rem; text-align: right; }
+.rev-num { font-family: var(--font-display); font-size: var(--step-display); line-height: 0.82; letter-spacing: -0.05em; }
+.rev-stars { display: flex; gap: 0.35rem; }
+.star { width: 1.75rem; height: 1.75rem; fill: var(--velvet); }
+.rev-meta { max-width: 30ch; color: var(--g-muted); }
+.rev-list {
+  --offset: 6rem;
+  list-style: none; margin: 6.5rem 0 0; padding: 0 0 var(--offset);
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 3.5rem;
+}
+.rev-list li { grid-column: 1 / span 5; }
+/* la columna derecha baja un poco: las opiniones se leen en zigzag */
+.rev-list li:nth-child(even) { grid-column: 8 / span 5; position: relative; top: var(--offset); }
+.rev-list blockquote { margin: 0; }
+.rev-list blockquote p { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.22; letter-spacing: -0.01em; padding-left: 0.42em; text-indent: -0.42em; max-width: 27.5ch; text-wrap: pretty; }
+.rev-who { padding-left: calc(var(--step-lead) * 0.42); }
+.rev-who { margin-top: 1rem; font-size: var(--step-small); font-weight: 600; }
+.rev-links { display: flex; flex-wrap: wrap; gap: 0.75rem 2.25rem; margin-top: 1.5rem; font-weight: 500; }
+
 /* ---------- 6 · valoración ---------- */
 .price { min-height: 82svh; display: flex; flex-direction: column; justify-content: center; padding-block: calc(var(--section) * 0.6); }
 .price-line { font-size: var(--step-display); line-height: 0.95; letter-spacing: -0.045em; text-wrap: nowrap; }
@@ -408,7 +432,7 @@ textarea.bf-field { resize: vertical; min-height: 5rem; }
 .bf-field:focus-visible { outline: 2px solid var(--gold); outline-offset: 0; border-color: var(--velvet); }
 .bf-field[aria-invalid="true"] { border-color: #A3261F; }
 .bf-days { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.5rem; }
-.bf-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.bf-slots { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5rem; }
 .bf-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
 .bf-chip { position: relative; display: block; cursor: pointer; }
 .bf-chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
@@ -497,6 +521,11 @@ textarea.bf-field { resize: vertical; min-height: 5rem; }
   .price-foot > p { grid-column: 1 / span 7; }
   .price-actions { grid-column: 8 / span 5; }
   .qs { margin-left: calc((100% - 11 * var(--gutter)) / 12 * 2 + 2 * var(--gutter)); }
+  .rev-title { grid-column: 1 / span 7; }
+  .rev-score { grid-column: 8 / span 5; }
+  .rev-list { margin-top: 4.5rem; }
+  .rev-list li { grid-column: 1 / span 6; }
+  .rev-list li:nth-child(even) { grid-column: 7 / span 6; }
 
   .gallery { height: auto; min-height: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; padding: 6rem var(--margin) 7rem; }
   .gal-title { width: 100%; }
@@ -524,6 +553,7 @@ textarea.bf-field { resize: vertical; min-height: 5rem; }
   .book-intro { grid-template-columns: 1fr; }
   .book-photo { grid-column: 1; grid-row: auto; }
   .bf-days { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bf-slots { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bf-two { grid-template-columns: 1fr; }
   .contact-list div { grid-template-columns: 7rem 1fr; }
   .contact-map iframe { aspect-ratio: 4 / 3; }
@@ -555,6 +585,17 @@ textarea.bf-field { resize: vertical; min-height: 5rem; }
 
   .qs { margin-left: 0; margin-top: 2.5rem; }
   .qs details { --pad: var(--margin); }
+
+  .rev-title, .rev-score { grid-column: 1 / -1; }
+  .rev-score { justify-self: stretch; grid-template-columns: auto 1fr; justify-items: start; align-items: center; column-gap: 1.25rem; row-gap: 0.5rem; text-align: left; }
+  .rev-num { grid-row: 1 / span 2; }
+  .rev-stars { align-self: end; }
+  .rev-meta { align-self: start; }
+  .star { width: 1.4rem; height: 1.4rem; }
+  .rev-list { margin-top: 3.5rem; padding-bottom: 0; row-gap: 2.25rem; }
+  .rev-list li, .rev-list li:nth-child(even) { grid-column: 1 / -1; top: 0; }
+  .rev-list li:nth-child(even) { padding-left: 14%; }
+  .rev-links { flex-direction: column; margin-top: 2.75rem; }
 
 
   .foot-top { flex-wrap: wrap; }
@@ -605,6 +646,14 @@ textarea.bf-field { resize: vertical; min-height: 5rem; }
   .js [data-price] .chip { clip-path: inset(0 100% 0 0); transition: clip-path 700ms var(--ease-in-out) 300ms; }
   .js [data-price].is-in .ln-in { transform: none; }
   .js [data-price].is-in .chip { clip-path: inset(0); }
+
+  /* la calificación: el número sube y las estrellas se encienden una por una */
+  .js [data-rate] .ln-in { transform: translateY(105%); transition: transform 1000ms var(--ease-expo); }
+  .js [data-rate] .star { scale: 0; transition: scale 520ms var(--ease-expo); transition-delay: calc(350ms + var(--s) * 90ms); }
+  .js [data-rate] .rev-meta { opacity: 0; transition: opacity 700ms var(--ease-out) 850ms; }
+  .js [data-rate].is-in .ln-in { transform: none; }
+  .js [data-rate].is-in .star { scale: 1; }
+  .js [data-rate].is-in .rev-meta { opacity: 1; }
 
   /* fotos que caen sobre el titular */
   .js .gallery .print { opacity: 0; translate: 0 -60px; transition: opacity 700ms var(--ease-out), translate 1000ms var(--ease-expo), transform 260ms var(--ease-out); }
