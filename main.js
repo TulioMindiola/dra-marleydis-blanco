@@ -16,6 +16,13 @@
   const bar = $('.bar');
   const barH = () => bar.getBoundingClientRect().height;
 
+  function goTo(target, top = false) {
+    closeMenu();
+    const y = top ? 0 : target.getBoundingClientRect().top + window.scrollY - barH();
+    if (lenis) lenis.scrollTo(y, { duration: 1.4 });
+    else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+    if (!top) { target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); }
+  }
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -23,11 +30,8 @@
     const target = id === '#top' ? document.body : $(id);
     if (!target) return;
     e.preventDefault();
-    closeMenu();
-    const y = id === '#top' ? 0 : target.getBoundingClientRect().top + window.scrollY - barH();
-    if (lenis) lenis.scrollTo(y, { duration: 1.4 });
-    else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
-    if (id !== '#top') target.setAttribute('tabindex', '-1'), target.focus({ preventScroll: true });
+    if (a.dataset.treat) setTreat(a.dataset.treat);
+    goTo(target, id === '#top');
   });
 
   /* ---------- menú del celular ---------- */
@@ -111,7 +115,7 @@
   $$('[data-list]').forEach((list) => Array.from(list.children).forEach((c, i) => c.style.setProperty('--i', i)));
   // Comprobado en cada scroll (no con IntersectionObserver): un salto por un ancla o un scroll
   // programático también revela lo que quedó atrás, y nada se queda escondido.
-  let pending = $$('[data-reveal], [data-list], [data-price], .gallery, .foot');
+  let pending = $$('[data-reveal], [data-drift], [data-list], [data-price], .gallery, .foot');
   function reveal() {
     if (!pending.length) return;
     const line = window.innerHeight * 0.88;
@@ -212,9 +216,132 @@
     });
   }
 
-  /* ---------- cada tratamiento abre WhatsApp con su nombre ---------- */
+  /* ---------- reservar cita ----------
+     La página no guarda nada: arma la reserva y la abre en el WhatsApp del consultorio.
+     Días y horas de atención por confirmar con la doctora (lunes a sábado; sábados solo en la mañana). */
+  const form = $('#reserva');
+  const treatSel = $('#bf-treat');
+  const daysBox = $('#bf-days');
+  const slotsBox = $('#bf-slots');
+  const timeHint = $('#bf-time-hint');
+  const summary = $('#bf-summary');
+  const done = $('#bf-done');
+  const MORNING = ['8:00', '9:00', '10:00', '11:00'];
+  const AFTERNOON = ['2:00', '3:00', '4:00', '5:00'];
+  const DAYS_AHEAD = 12;
+  const tidy = (s) => s.replace(/\./g, '');
+  const fWeek = new Intl.DateTimeFormat('es-CO', { weekday: 'short' });
+  const fMonth = new Intl.DateTimeFormat('es-CO', { month: 'short' });
+  const fLong = new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
+  const days = [];
+  const cursor = new Date(); cursor.setHours(12, 0, 0, 0);
+  while (days.length < DAYS_AHEAD) {
+    cursor.setDate(cursor.getDate() + 1);
+    if (cursor.getDay() !== 0) days.push(new Date(cursor));
+  }
+  daysBox.innerHTML = days.map((d, i) =>
+    `<label class="bf-chip"><input type="radio" name="dia" value="${i}" aria-label="${fLong.format(d)}"><span><i>${tidy(fWeek.format(d))}</i><b>${d.getDate()}</b><i>${tidy(fMonth.format(d))}</i></span></label>`
+  ).join('');
+
+  function chosen(name) { const el = form.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ''; }
+  function renderSlots() {
+    const i = chosen('dia');
+    if (i === '') { slotsBox.innerHTML = ''; timeHint.hidden = false; timeHint.textContent = 'Primero elige un día.'; return; }
+    const sat = days[+i].getDay() === 6;
+    const prev = chosen('hora');
+    const list = MORNING.map((t) => `${t} a. m.`).concat(sat ? [] : AFTERNOON.map((t) => `${t} p. m.`));
+    slotsBox.innerHTML = list.map((t) => {
+      const [h, ...ap] = t.split(' ');
+      return `<label class="bf-chip"><input type="radio" name="hora" value="${t}"${t === prev ? ' checked' : ''}><span><b>${h}</b><i>${ap.join(' ')}</i></span></label>`;
+    }).join('');
+    timeHint.hidden = !sat;
+    timeHint.textContent = 'Los sábados atendemos en la mañana.';
+  }
+  function updateSummary() {
+    const i = chosen('dia'), t = chosen('hora');
+    const parts = [treatSel.value];
+    parts.push(i === '' ? 'elige día y hora' : fLong.format(days[+i]) + (t ? ` · ${t}` : ' · elige la hora'));
+    summary.textContent = parts.join(' · ');
+  }
+  function setTreat(name) {
+    const opt = Array.from(treatSel.options).find((o) => o.text === name);
+    if (opt) treatSel.value = opt.value;
+    updateSummary();
+  }
+  const errs = {
+    dia: $('#bf-day-err'), hora: $('#bf-time-err'), nombre: $('#bf-name-err'), celular: $('#bf-phone-err'), ok: $('#bf-ok-err')
+  };
+  function showErr(key, on, field) {
+    errs[key].hidden = !on;
+    if (field) field.setAttribute('aria-invalid', on ? 'true' : 'false');
+  }
+  form.addEventListener('change', (e) => {
+    if (e.target.name === 'dia') { renderSlots(); showErr('dia', false); }
+    if (e.target.name === 'hora') showErr('hora', false);
+    if (e.target.id === 'bf-ok' && e.target.checked) showErr('ok', false);
+    updateSummary();
+  });
+  form.addEventListener('input', (e) => {
+    if (e.target.id === 'bf-name') showErr('nombre', false, e.target);
+    if (e.target.id === 'bf-phone') showErr('celular', false, e.target);
+  });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = $('#bf-name'), phone = $('#bf-phone'), ok = $('#bf-ok');
+    let digits = phone.value.replace(/\D/g, '');
+    if (digits.length === 12 && digits.startsWith('57')) digits = digits.slice(2);
+    const checks = [
+      ['dia', chosen('dia') !== '', daysBox.querySelector('input')],
+      ['hora', chosen('hora') !== '', slotsBox.querySelector('input') || daysBox.querySelector('input')],
+      ['nombre', name.value.trim().length >= 3, name],
+      ['celular', /^3\d{9}$/.test(digits), phone],
+      ['ok', ok.checked, ok]
+    ];
+    let first = null;
+    checks.forEach(([key, good, el]) => {
+      showErr(key, !good, key === 'nombre' || key === 'celular' ? el : null);
+      if (!good && !first) first = el;
+    });
+    if (first) { first.focus(); return; }
+    const note = $('#bf-note').value.trim();
+    const lines = [
+      'Hola Dra. Marleydis, quiero reservar una cita.',
+      '',
+      `Tratamiento: ${treatSel.value}`,
+      `Día: ${fLong.format(days[+chosen('dia')])}`,
+      `Hora: ${chosen('hora')}`,
+      `Nombre: ${name.value.trim()}`,
+      `Celular: ${digits.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}`,
+      `Primera cita: ${chosen('primera')}`
+    ];
+    if (note) lines.push(`Comentario: ${note}`);
+    const url = WA + encodeURIComponent(lines.join('\n'));
+    const w = window.open(url, '_blank');
+    if (w) w.opener = null; else window.location.href = url;
+    $('#bf-done-link').href = url;
+    done.hidden = false;
+    done.focus();
+  });
+  $('#bf-again').addEventListener('click', () => {
+    form.reset();
+    done.hidden = true;
+    renderSlots();
+    updateSummary();
+    Object.keys(errs).forEach((k) => showErr(k, false));
+    treatSel.focus();
+  });
+  renderSlots();
+  updateSummary();
+
+  /* ---------- cada tratamiento lleva a la reserva con su nombre ya elegido ---------- */
   $$('[data-wa]').forEach((a) => {
     a.href = WA + encodeURIComponent(`Hola Dra. Marleydis, quiero información sobre ${a.dataset.wa}.`);
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      setTreat(a.querySelector('.svc').textContent.trim());
+      goTo($('#reservar'));
+    });
   });
 
   /* ---------- bucle de scroll ---------- */

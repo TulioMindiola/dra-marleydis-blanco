@@ -47,24 +47,24 @@
 <header class="bar" data-ground="pearl">
   <a class="mark" href="#top" aria-label="Dra. Marleydis Blanco Méndez, volver al inicio">
     <svg class="tooth" viewBox="0 0 56 56" aria-hidden="true"><path d="M9 23c0-10 7-14 14-12 3 1 4 2 5 2s2-1 5-2c7-2 14 2 14 12 0 9-4 14-5 22-1 6-5 6-6 1-1-5-3-10-8-10s-7 5-8 10c-1 5-5 5-6-1-1-8-5-13-5-22z"/></svg>
-    <span>Marleydis Blanco</span>
+    <span class="mark-text"><span class="mark-name">Dra. Marleydis Blanco</span><span class="mark-sub">Odontología Integral Especializada</span></span>
   </a>
   <nav class="links" aria-label="Principal">
-    <a class="link" href="#resultados">Resultados</a>
     <a class="link" href="#tratamientos">Tratamientos</a>
+    <a class="link" href="#resultados">Resultados</a>
     <a class="link" href="#doctora">La doctora</a>
-    <a class="link" href="#preguntas">Preguntas</a>
+    <a class="link" href="#contacto">Contacto</a>
   </nav>
-  <a class="button bar-cta" href="https://wa.me/573183683665?text=Hola%20Dra.%20Marleydis%2C%20quiero%20agendar%20mi%20valoraci%C3%B3n%20gratis." target="_blank" rel="noopener">Agendar<span class="wide-only">&nbsp;cita</span></a>
+  <a class="button bar-cta" href="#reservar">Reservar<span class="wide-only">&nbsp;cita</span></a>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
 </header>
 
 <div class="menu" id="menu" hidden>
   <nav aria-label="Menú del celular">
-    <a href="#resultados">Resultados</a>
+    <a href="#reservar">Reservar cita</a>
     <a href="#tratamientos">Tratamientos</a>
+    <a href="#resultados">Resultados</a>
     <a href="#doctora">La doctora</a>
-    <a href="#valoracion">Valoración gratis</a>
     <a href="#preguntas">Preguntas</a>
     <a href="#contacto">Contacto</a>
   </nav>
@@ -81,9 +81,8 @@
       <div class="title-copy copy-a">
         <h1 class="hero-title">
           <span class="ln"><span class="ln-in">Sonríe
-            <span class="slot" role="img" aria-label="Sonrisas reales del consultorio">
-              <span class="crop on" style="--iw:540;--cx:100;--cy:242;--cw:364;--ch:121"><img src="assets/ig/ig-023.jpg" width="540" height="960" alt="" fetchpriority="high"></span>
-              <span class="crop" style="--iw:1440;--cx:170;--cy:912;--cw:1100;--ch:367"><img src="assets/ig/ig-002.jpg" width="1440" height="1440" alt=""></span>
+            <span class="slot" role="img" aria-label="Sonrisas de pacientes del consultorio">
+              <span class="crop on" style="--iw:1440;--cx:170;--cy:912;--cw:1100;--ch:367"><img src="assets/ig/ig-002.jpg" width="1440" height="1440" alt="" fetchpriority="high"></span>
               <span class="crop" style="--iw:1440;--cx:150;--cy:845;--cw:1140;--ch:380"><img src="assets/ig/ig-001.jpg" width="1440" height="1440" alt=""></span>
             </span></span></span>
           <span class="ln"><span class="ln-in">con Blanco</span></span>
@@ -96,10 +95,24 @@
         </div>
       </div>
 
+      <figure class="hero-portrait">
+        <span class="crop" style="--iw:540;--cx:0;--cy:90;--cw:540;--ch:780"><img src="assets/ig/ig-023.jpg" width="540" height="960" alt="La doctora Marleydis Blanco con bata blanca, apoyada en la silla odontológica de su consultorio" fetchpriority="high"></span>
+      </figure>
+
       <div class="hero-foot">
         <p class="hero-sub">Dra. Marleydis Blanco Méndez, odontología integral especializada en Suba, Bogotá. Tu primera valoración es gratis.</p>
-        <a class="button" href="https://wa.me/573183683665?text=Hola%20Dra.%20Marleydis%2C%20quiero%20agendar%20mi%20valoraci%C3%B3n%20gratis." target="_blank" rel="noopener">Agendar valoración gratis</a>
+        <div class="hero-actions">
+          <a class="button" href="#reservar" data-treat="Valoración gratis">Reservar valoración gratis</a>
+          <a class="link-plain hero-wa" href="https://wa.me/573183683665?text=Hola%20Dra.%20Marleydis%2C%20quiero%20agendar%20mi%20valoraci%C3%B3n%20gratis." target="_blank" rel="noopener">o escribir por WhatsApp</a>
+        </div>
       </div>
+
+      <ul class="hero-facts">
+        <li><strong>Valoración gratis</strong> en tu primera cita</li>
+        <li><strong>Financiación</strong> y todos los medios de pago</li>
+        <li><strong>Niños y adultos</strong> odontología integral</li>
+        <li><strong>Suba La Campiña</strong> Calle 146A #95-45</li>
+      </ul>
     </div>
   </section>
 
@@ -150,7 +163,10 @@
 
   <!-- 4 · Tratamientos -->
   <section class="services wrap" id="tratamientos" data-ground="pearl">
-    <h2 class="head services-title" data-reveal>Todo tu tratamiento,<br> en Suba</h2>
+    <div class="grid services-head">
+      <h2 class="head services-title" data-reveal>Todo tu tratamiento,<br> en Suba</h2>
+      <p class="services-lead" data-reveal style="--i:1">Odontología integral para niños y adultos en un mismo consultorio. Toca un tratamiento y reserva tu cita: la valoración es gratis.</p>
+    </div>
     <div class="grid services-body">
       <figure class="services-photo shutter" data-reveal>
         <video class="loop" width="360" height="450" muted loop playsinline autoplay preload="metadata" poster="assets/video/consulta-fotocurado.jpg" aria-label="La doctora, con bata y tapabocas, aplica luz de fotocurado en la sonrisa de un paciente">
@@ -204,14 +220,109 @@
     <div class="grid price-foot">
       <p data-reveal>La primera cita es gratis: revisamos tu boca, te explicamos el plan y te damos el precio antes de empezar. Manejamos financiación y recibimos todos los medios de pago.</p>
       <div class="price-actions" data-reveal style="--i:1">
-        <a class="button" href="https://wa.me/573183683665?text=Hola%20Dra.%20Marleydis%2C%20quiero%20agendar%20mi%20valoraci%C3%B3n%20gratis." target="_blank" rel="noopener">Agendar valoración</a>
+        <a class="button" href="#reservar" data-treat="Valoración gratis">Reservar valoración</a>
         <a class="link-plain" href="#tratamientos">Ver tratamientos</a>
       </div>
     </div>
   </section>
 
+  <!-- 7 · Reservar -->
+  <section class="book wrap" id="reservar" data-ground="velvet">
+    <div class="grid book-grid">
+      <div class="book-intro">
+        <h2 class="head" data-reveal>Reserva tu cita</h2>
+        <p class="book-lead" data-reveal style="--i:1">Elige el tratamiento, el día y la hora. La doctora te confirma la cita por WhatsApp.</p>
+        <ul class="book-notes" data-reveal style="--i:2">
+          <li><strong>La valoración es gratis.</strong> Revisamos tu boca y te damos el plan con su precio antes de empezar.</li>
+          <li><strong>Atención con cita previa</strong> en la Calle 146A #95-45, Suba La Campiña.</li>
+          <li><strong>Tus datos solo se usan para tu cita.</strong> Viajan por WhatsApp; la página no los guarda.</li>
+        </ul>
+        <figure class="book-photo shutter" data-reveal style="--i:3">
+          <span class="crop" style="--iw:1281;--cx:0;--cy:140;--cw:1281;--ch:960"><img src="assets/ig/ig-035.jpg" width="1281" height="1567" alt="La doctora Marleydis Blanco con las dos integrantes de su equipo en el consultorio" loading="lazy"></span>
+          <figcaption>La doctora y su equipo, en el consultorio de Suba.</figcaption>
+        </figure>
+      </div>
+
+      <form class="book-form" id="reserva" novalidate data-ui data-reveal style="--i:1" aria-label="Reservar una cita">
+        <div class="bf-row">
+          <label class="bf-label" for="bf-treat">Tratamiento</label>
+          <select class="bf-field" id="bf-treat" name="tratamiento">
+            <option>Valoración gratis</option>
+            <option>Diseño de sonrisa</option>
+            <option>Carillas dentales</option>
+            <option>Blanqueamiento</option>
+            <option>Bótox odontológico</option>
+            <option>Implantes dentales</option>
+            <option>Prótesis dentales</option>
+            <option>Rehabilitación oral</option>
+            <option>Plasma rico en plaquetas</option>
+            <option>Limpieza dental</option>
+            <option>Ortodoncia</option>
+            <option>Extracciones y cordales</option>
+            <option>Placa neuromiorrelajante</option>
+            <option>Odontopediatría</option>
+          </select>
+        </div>
+
+        <fieldset class="bf-row" aria-describedby="bf-day-err">
+          <legend class="bf-label">Día</legend>
+          <div class="bf-days" id="bf-days"></div>
+          <p class="bf-err" id="bf-day-err" hidden>Elige el día de tu cita.</p>
+        </fieldset>
+
+        <fieldset class="bf-row" aria-describedby="bf-time-hint bf-time-err">
+          <legend class="bf-label">Hora</legend>
+          <div class="bf-slots" id="bf-slots"></div>
+          <p class="bf-hint" id="bf-time-hint">Primero elige un día.</p>
+          <p class="bf-err" id="bf-time-err" hidden>Elige la hora de tu cita.</p>
+        </fieldset>
+
+        <div class="bf-two">
+          <div class="bf-row">
+            <label class="bf-label" for="bf-name">Nombre y apellido</label>
+            <input class="bf-field" id="bf-name" name="nombre" autocomplete="name" aria-describedby="bf-name-err">
+            <p class="bf-err" id="bf-name-err" hidden>Escribe tu nombre y apellido.</p>
+          </div>
+          <div class="bf-row">
+            <label class="bf-label" for="bf-phone">Celular</label>
+            <input class="bf-field" id="bf-phone" name="celular" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="bf-phone-err">
+            <p class="bf-err" id="bf-phone-err" hidden>Escribe un celular de 10 dígitos, por ejemplo 300 123 4567.</p>
+          </div>
+        </div>
+
+        <fieldset class="bf-row">
+          <legend class="bf-label">¿Es tu primera cita con la doctora?</legend>
+          <div class="bf-choice">
+            <label class="bf-chip"><input type="radio" name="primera" value="Sí" checked><span>Sí, es la primera</span></label>
+            <label class="bf-chip"><input type="radio" name="primera" value="No"><span>No, ya soy paciente</span></label>
+          </div>
+        </fieldset>
+
+        <div class="bf-row">
+          <label class="bf-label" for="bf-note">Algo que la doctora deba saber <span class="bf-opt">(opcional)</span></label>
+          <textarea class="bf-field" id="bf-note" name="comentario" rows="2"></textarea>
+        </div>
+
+        <label class="bf-check"><input type="checkbox" id="bf-ok" aria-describedby="bf-ok-err"><span>Acepto que mis datos se usen solo para agendar y confirmar mi cita.</span></label>
+        <p class="bf-err" id="bf-ok-err" hidden>Marca la casilla para continuar.</p>
+
+        <div class="bf-submit">
+          <p class="bf-summary" id="bf-summary" aria-live="polite">Valoración gratis · elige día y hora</p>
+          <button class="button bf-btn" type="submit">Reservar por WhatsApp</button>
+        </div>
+
+        <div class="bf-done" id="bf-done" hidden tabindex="-1">
+          <h3>Tu reserva está lista en WhatsApp</h3>
+          <p>Solo toca Enviar. La doctora te confirma la cita por ese mismo chat.</p>
+          <p class="bf-done-links"><a class="link-plain" id="bf-done-link" href="https://wa.me/573183683665" target="_blank" rel="noopener">Abrir WhatsApp otra vez</a> <button type="button" class="link-plain" id="bf-again">Hacer otra reserva</button></p>
+        </div>
+        <noscript><p class="bf-hint">Para reservar, escríbenos al WhatsApp <a href="https://wa.me/573183683665">318 368 3665</a>.</p></noscript>
+      </form>
+    </div>
+  </section>
+
   <!-- 7 · Cariño -->
-  <section class="gallery" aria-labelledby="gal-title" data-ground="fuchsia">
+  <section class="gallery" aria-labelledby="gal-title" data-ground="gold">
     <h2 class="gal-title" id="gal-title">Todo con<br> cariño</h2>
     <figure class="print print-1" tabindex="0">
       <span class="crop" style="--iw:720;--cx:0;--cy:0;--cw:720;--ch:960"><img src="assets/ig/ig-062.jpg" width="720" height="1280" alt="La doctora abraza a un niño con el babero dorado del consultorio" loading="lazy"></span>
@@ -252,8 +363,8 @@
         <p>Sí. La doctora atiende odontopediatría: controles, limpiezas y caries de los más pequeños, con paciencia y con cariño.</p>
       </details>
       <details>
-        <summary>¿Dónde queda el consultorio?</summary>
-        <p>En la Calle 146A #95-45, Suba La Campiña, Bogotá. Escríbenos al WhatsApp 318 368 3665 y te enviamos la ubicación.</p>
+        <summary>¿Cómo reservo mi cita?</summary>
+        <p>En la sección «Reserva tu cita» eliges el tratamiento, el día y la hora. Se abre WhatsApp con tu reserva escrita y la doctora te la confirma por ese chat.</p>
       </details>
     </div>
   </section>
@@ -261,15 +372,19 @@
   <!-- 9 · Contacto -->
   <section class="contact wrap" id="contacto" data-ground="velvet">
     <div class="grid contact-grid">
-      <p class="contact-line" data-reveal>Escríbenos por WhatsApp y te damos cita para tu valoración gratis.</p>
-      <figure class="contact-photo" data-reveal style="--i:1">
-        <span class="crop" style="--iw:540;--cx:60;--cy:120;--cw:420;--ch:420"><img src="assets/ig/ig-023.jpg" width="540" height="960" alt="Retrato de la doctora Marleydis Blanco con bata blanca" loading="lazy"></span>
-      </figure>
-      <div class="contact-links" data-reveal style="--i:2">
-        <h2 class="contact-q">¿Agendamos tu cita?</h2>
-        <a class="link-plain" href="https://wa.me/573183683665?text=Hola%20Dra.%20Marleydis%2C%20quiero%20agendar%20mi%20valoraci%C3%B3n%20gratis." target="_blank" rel="noopener">WhatsApp 318 368 3665</a>
-        <a class="link-plain" href="https://www.instagram.com/odontologablancoo/" target="_blank" rel="noopener">Instagram @odontologablancoo</a>
-        <p class="small">Calle 146A #95-45, Suba La Campiña, Bogotá. <a class="link-plain" href="https://www.google.com/maps/search/?api=1&amp;query=Calle%20146A%20%2395-45%20Suba%20Bogot%C3%A1" target="_blank" rel="noopener">Cómo llegar</a></p>
+      <div class="contact-info">
+        <h2 class="head" data-drift>Visítanos en Suba</h2>
+        <p class="contact-line" data-drift style="--i:1">Calle 146A #95-45, Suba La Campiña, Bogotá. Atención con cita previa.</p>
+        <dl class="contact-list" data-drift style="--i:2">
+          <div><dt>WhatsApp</dt><dd><a class="link-plain" href="https://wa.me/573183683665?text=Hola%20Dra.%20Marleydis%2C%20quiero%20agendar%20mi%20valoraci%C3%B3n%20gratis." target="_blank" rel="noopener">318 368 3665</a></dd></div>
+          <div><dt>Llamadas</dt><dd><a class="link-plain" href="tel:+573183683665">318 368 3665</a></dd></div>
+          <div><dt>Instagram</dt><dd><a class="link-plain" href="https://www.instagram.com/odontologablancoo/" target="_blank" rel="noopener">@odontologablancoo</a></dd></div>
+          <div><dt>Cómo llegar</dt><dd><a class="link-plain" href="https://www.google.com/maps/search/?api=1&amp;query=Calle%20146A%20%2395-45%20Suba%20Bogot%C3%A1" target="_blank" rel="noopener">Abrir en Google Maps</a></dd></div>
+        </dl>
+        <a class="button" href="#reservar" data-drift style="--i:3">Reservar cita</a>
+      </div>
+      <div class="contact-map" data-drift style="--i:1">
+        <iframe title="Mapa del consultorio: Calle 146A #95-45, Suba La Campiña, Bogotá" src="https://maps.google.com/maps?q=Calle%20146A%20%2395-45%2C%20Suba%2C%20Bogot%C3%A1%2C%20Colombia&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </section>
@@ -290,7 +405,7 @@
   <a class="foot-phone" href="https://wa.me/573183683665?text=Hola%20Dra.%20Marleydis%2C%20quiero%20agendar%20mi%20valoraci%C3%B3n%20gratis." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp al 318 368 3665"><span class="ln"><span class="ln-in">318 368 3665</span></span></a>
   <div class="foot-meta small">
     <p><a class="link-plain" href="https://www.instagram.com/odontologablancoo/" target="_blank" rel="noopener">Instagram</a> · <a class="link-plain" href="https://www.tiktok.com/@odontologablancoo" target="_blank" rel="noopener">TikTok</a> · <a class="link-plain" href="https://wa.me/573183683665" target="_blank" rel="noopener">WhatsApp</a></p>
-    <p>© 2026 Dra. Marleydis Blanco Méndez</p>
+    <p>© 2026 Dra. Marleydis Blanco Méndez · Sitio web por <a class="link-plain" href="https://impulsapixel.com" target="_blank" rel="noopener">ImpulsaPixel</a></p>
     <p>Bogotá, Colombia</p>
   </div>
 </footer>
