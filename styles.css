@@ -328,9 +328,9 @@ video.loop { display: block; width: 100%; height: auto; object-fit: cover; backg
   cursor: default;
 }
 .print .crop { width: 100%; }
-.print { width: min(22vw, 21rem); }
-.print-1 { --r: -7deg; left: 4%; top: 10%; }
-.print-2 { --r: 6deg; right: 3%; top: 26%; }
+.print { width: min(21vw, 20rem); }
+.print-1 { --r: -7deg; left: 2%; top: 10%; }
+.print-2 { --r: 6deg; right: 2%; top: 26%; }
 .print-3 { --r: -3deg; width: min(13vw, 12rem); left: 31%; bottom: -8%; }
 .print:hover, .print:focus-visible { --r: 0deg; z-index: 5; transform: rotate(0deg) scale(1.03); }
 .gal-note { position: absolute; left: var(--margin); bottom: 1.5rem; max-width: 34ch; font-weight: 500; }
